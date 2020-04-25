@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Deaths</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <!--ion-card *ngIf="deaths" class="movie-card"-->
+   <ion-card detail lines="inset" *ngFor="let death of deaths | async">
+    <ion-card-header>Death number {{ death.death_id }}</ion-card-header>
+    <ion-card-content>
+      {{ death.season }}
+    </ion-card-content>
+    <ion-item class="movie-info" lines="none">
+      <ion-icon name="death" slot="start"></ion-icon>
+      Death: {{ death.death }}
+    </ion-item>
+    <ion-item class="movie-info" lines="none">
+      <ion-icon name="calendar" slot="start"></ion-icon>
+      Cause: {{ death.cause }}
+    </ion-item>
+  </ion-card>
+</ion-content>

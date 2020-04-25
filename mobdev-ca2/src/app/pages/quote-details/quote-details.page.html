@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start" defaultHref="/tabs/quotes">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ quote?.author }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="unfavoriteepisode()" *ngIf="isFavorite">
+        <ion-icon name="star" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+      <ion-button (click)="favoriteepisode()" *ngIf="!isFavorite">
+        <ion-icon name="star-outline" slot="icon-only" color="warning"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-card *ngIf="quote" class="movie-card">
+    <ion-card-header>Episode {{ quote.series }}: {{ quote.episode }}</ion-card-header>
+    <ion-card-content>
+      {{ quote.series }}
+    </ion-card-content>
+    <ion-item class="movie-info" lines="none">
+      <ion-icon name="quote" slot="start"></ion-icon>
+      Director: {{ quote.author }}
+    </ion-item>
+  </ion-card>
+</ion-content>
