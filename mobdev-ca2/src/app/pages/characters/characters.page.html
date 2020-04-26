@@ -1,3 +1,10 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
 <ion-header>
 	<ion-toolbar color="primary">
 		<ion-title>Characters</ion-title>
@@ -5,8 +12,12 @@
 </ion-header>
 <ion-content>
 	<ion-list>
-		<ion-item button detail lines="inset" *ngFor="let character of characters | async" (click)="openDetails(character)">
+		<ion-item button detail lines="inset" *ngFor="let character of characters" (click)="openDetails(character)">
 			{{ character.name }}
+
+            <ion-avatar slot="end">
+            <img class="profile_pic" src= "{{ character.img }}">
+          </ion-avatar>
 		</ion-item>
 	</ion-list>
 

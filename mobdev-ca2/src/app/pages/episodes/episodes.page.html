@@ -1,3 +1,10 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Episodes</ion-title>
@@ -5,8 +12,13 @@
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-item button detail lines="inset" *ngFor="let episode of episodes | async" (click)="openDetails(episode)">
-        {{ episode.title }}
+        <ion-item button detail lines="inset" *ngFor="let episode of episodes" (click)="openDetails(episode)">
+    <ion-icon name="film-outline" slot="start"></ion-icon>
+        <ion-label>
+            <h2>{{ episode.title }}</h2>
+            <h3>Episode #{{ episode.episode_id }}</h3>
+            <p>Season: {{ episode.season }}</p>
+          </ion-label>
         </ion-item>
     </ion-list>
 </ion-content> 

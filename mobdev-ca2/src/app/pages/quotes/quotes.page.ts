@@ -1,77 +1,42 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="episodes">
-      <ion-icon name="film"></ion-icon>
-      <ion-label>Episodes</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="characters">
-      <ion-icon name="people"></ion-icon>
-      <ion-label>Characters</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="quotes">
-        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-      <ion-label>quotes</ion-label>
-    </ion-tab-button>
-     <ion-tab-button tab="deaths">
-      <ion-icon name="skull"></ion-icon>
-      <ion-label>Deaths</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs><ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="episodes">
-      <ion-icon name="film"></ion-icon>
-      <ion-label>Episodes</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="characters">
-      <ion-icon name="people"></ion-icon>
-      <ion-label>Characters</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="quotes">
-        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-      <ion-label>quotes</ion-label>
-    </ion-tab-button>
-     <ion-tab-button tab="deaths">
-      <ion-icon name="skull"></ion-icon>
-      <ion-label>Deaths</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs><ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="episodes">
-      <ion-icon name="film"></ion-icon>
-      <ion-label>Episodes</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="characters">
-      <ion-icon name="people"></ion-icon>
-      <ion-label>Characters</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="quotes">
-        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-      <ion-label>quotes</ion-label>
-    </ion-tab-button>
-     <ion-tab-button tab="deaths">
-      <ion-icon name="skull"></ion-icon>
-      <ion-label>Deaths</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion-tabs><ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="episodes">
-      <ion-icon name="film"></ion-icon>
-      <ion-label>Episodes</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="characters">
-      <ion-icon name="people"></ion-icon>
-      <ion-label>Characters</ion-label>
-    </ion-tab-button>
-    <ion-tab-button tab="quotes">
-        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-      <ion-label>quotes</ion-label>
-    </ion-tab-button>
-     <ion-tab-button tab="deaths">
-      <ion-icon name="skull"></ion-icon>
-      <ion-label>Deaths</ion-label>
-    </ion-tab-button>
-  </ion-tab-bar>
-</ion
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ApiService } from '../../services/api.service';
+
+@Component({
+    selector: 'app-quotes',
+    templateUrl: './quotes.page.html',
+    styleUrls: ['./quotes.page.scss'],
+})
+export class QuotesPage implements OnInit {
+    quotes: Observable<any>;
+    quotes_array: any[] = [];
+    findKey = '';
+
+
+    constructor(private router: Router, private api: ApiService) { }
+    ngOnInit() {
+        this.quotes = this.api.getQuotes();
+        this.quotes.subscribe(data => {
+            this.quotes_array = [data];
+            console.log(this.quotes_array);
+
+        })
+    }
+
+    ////Search bar logic
+    getQuoteKey(event) {
+        const keyword = event.target.value;
+        this.findKey = keyword;
+        console.log(keyword);
+    }
+
+
+
+
+    openDetails(quote) {
+        let quoteId = quote.quote_id;
+        this.router.navigateByUrl(`/tabs/quotes/${quoteId}`);
+    }
+
+}

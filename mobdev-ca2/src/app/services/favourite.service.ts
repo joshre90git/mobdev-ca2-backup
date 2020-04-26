@@ -75,4 +75,44 @@ export class FavouriteService {
         });
 
     }
+
+
+    getAllFavouriteQuotes() {
+        return this.storage.get(STORAGE_KEYChar);
+    }
+
+    isFavouriteQuote(quoteId) {
+        return this.getAllFavouriteQuotes().then(result => {
+            return result && result.indexOf(quoteId) !== -1;
+        });
+    }
+
+    favouriteQuote(quoteId) {
+        return this.getAllFavouriteQuotes().then(result => {
+            if (result) {
+                result.push(quoteId);
+                return this.storage.set(STORAGE_KEYChar, result);
+            } else {
+                return this.storage.set(STORAGE_KEYChar, [quoteId]);
+            }
+        });
+    }
+
+    unfavouriteQuote(quoteId) {
+        return this.getAllFavouriteQuotes().then(result => {
+            if (result) {
+                var index = result.indexOf(quoteId);
+                result.splice(index, 1);
+                return this.storage.set(STORAGE_KEYChar, result);
+            }
+
+        });
+
+    }
+
+
+
+
+
+
 }

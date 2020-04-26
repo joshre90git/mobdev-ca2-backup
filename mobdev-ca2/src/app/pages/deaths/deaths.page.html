@@ -1,22 +1,52 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Deaths</ion-title>
-  </ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-title>Deaths</ion-title>
+	</ion-toolbar>
+	<ion-toolbar color="primary">
+		<ion-searchbar placeholder="Look for keywords..." (ionChange)="getDeathKey($event)"></ion-searchbar>
+	</ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <!--ion-card *ngIf="deaths" class="movie-card"-->
-   <ion-card detail lines="inset" *ngFor="let death of deaths | async">
-    <ion-card-header>Death number {{ death.death_id }}</ion-card-header>
-    <ion-card-content>
-      {{ death.season }}
-    </ion-card-content>
-    <ion-item class="movie-info" lines="none">
-      <ion-icon name="death" slot="start"></ion-icon>
-      Death: {{ death.death }}
-    </ion-item>
-    <ion-item class="movie-info" lines="none">
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      Cause: {{ death.cause }}
-    </ion-item>
-  </ion-card>
+	<ion-card detail lines="inset" *ngFor="let death of deaths | async | deathfilter: findKey">
+		<ion-card-header>
+			<ion-card-title>{{ death.death }}</ion-card-title>
+		</ion-card-header>
+		<ion-card-content>
+			<p>Death number {{ death.death_id }} in the series.</p>
+		</ion-card-content>
+
+		<ion-item lines="none">
+			<ion-icon name="skull-outline" slot="start"></ion-icon>
+			<p>Cause: <strong>{{ death.cause }}</strong></p>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-icon name="walk-outline" slot="start"></ion-icon>
+			<p>Responsible: <strong>{{ death.responsible }}</strong></p>
+		</ion-item>
+		<ion-item lines="none">
+			<ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+            <ion-label>
+			<h2>Lasts words:</h2>
+            <h3><strong>"<i>{{ death.last_words }}</i>"</strong></h3>
+            </ion-label>
+		</ion-item>
+		<ion-item lines="none">
+		<ion-icon name="film-outline" slot="start"></ion-icon>
+		<ion-label>
+			<h2>Season: <strong>{{ death.season }}</strong></h2>
+            <h3>Episode: <strong>{{ death.episode }}</strong></h3>
+            <p>#deaths in episode: <strong>{{ death.number_of_deaths }}</strong></p>
+		</ion-label>
+		</ion-item>
+
+
+	</ion-card>
 </ion-content>

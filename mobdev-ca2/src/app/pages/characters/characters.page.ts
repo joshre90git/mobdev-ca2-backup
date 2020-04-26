@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 import { HttpClient } from '@angular/common/http'
 
@@ -11,10 +10,8 @@ import { HttpClient } from '@angular/common/http'
 })
 export class CharactersPage implements OnInit {
 
-
     offset = 0;
     characters = [];
-    //characters: Observable <any>;
     page = 0;
 
     constructor(private router: Router, private api: ApiService, private http: HttpClient) { }
@@ -23,24 +20,36 @@ export class CharactersPage implements OnInit {
     }
 
 
-    loadCharacters() {
-       
-            this.http.get(`https://www.breakingbadapi.com/api/characters?offset=20`).subscribe(data=> {
-                console.log('mydata_character:',data)
-                this.characters = this.characters.concat(data);
-                
-            })
-            //this.api.getCharacters(this.offset).subscribe(res => {
-            //console.log(res);
-            //this.characters_array = this.characters_array.concat(res['results']);
-            //this.characters = this.api.getCharacters(this.offset);
-            //this.characters_array = this.characters_array.concat(res['results']);
-        }       
+    loadCharacters(loadData = false) {
+
+        if (loadData) {
+            this.offset += 15;
+            console.log(this.offset);
+        }
+
+        this.api.getCharacters(this.offset).subscribe(data => {
+            console.log('mydata_character:', data)
+            this.characters = this.characters.concat(data);
+        })
+    }
+
+    ///Code taken from ion-infinite-scroll - Ionic Documentation | https://ionicframework.com/docs/api/infinite-scroll#react
+    loadData(event) {
+        setTimeout(() => {
+            event.target.complete(this.loadCharacters(event));
+
+            if (this.characters.length > 150) {
+                event.target.disabled = true;
+            }
+        }, 500);
+    }
 
 
     openDetails(character) {
-        let characterId = character.character_id;
+        let characterId = character.char_id;
+        console.log("Character_id: ", characterId);
         this.router.navigateByUrl(`/tabs/characters/${characterId}`);
+
     }
 
 }

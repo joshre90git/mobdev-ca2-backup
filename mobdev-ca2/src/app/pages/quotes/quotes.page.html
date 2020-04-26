@@ -1,15 +1,30 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Quotes</ion-title>
   </ion-toolbar>
   <ion-toolbar color="primary">
- <ion-searchbar placeholder="Look for keywords..." animated (ionChange)="getQuoteKey( $event )"></ion-searchbar>
+ <ion-searchbar placeholder="Look for keywords..." (ionChange)="getQuoteKey($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content>
     <ion-list>
-        <ion-item button detail lines="inset" *ngFor="let quote of quotes | filter: findKey | async  " (click)="openDetails(quote)">
-        {{ quote.quote }}
-        </ion-item>
+        <ion-card button detail lines="inset" *ngFor="let quote of quotes | async | filter: findKey " (click)="openDetails(quote)">
+        <ion-card-header>
+        <ion-card-title>
+            <i>"{{ quote.quote }}"</i>
+            </ion-card-title>
+        </ion-card-header>
+         <ion-card-content>
+         <ion-icon name="person-outline" slot="start"></ion-icon>
+          {{ quote.author }}
+        </ion-card-content>
+        </ion-card>
     </ion-list>
 </ion-content>

@@ -7,9 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { DeathsPageRoutingModule } from './deaths-routing.module';
 
 import { DeathsPage } from './deaths.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
+    PipesModule,
     CommonModule,
     FormsModule,
     IonicModule,

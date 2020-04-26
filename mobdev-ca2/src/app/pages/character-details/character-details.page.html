@@ -1,32 +1,65 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
+
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start" defaultHref="/tabs/episodes">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ character?.name }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="unfavoritecharacter()" *ngIf="isFavorite">
-        <ion-icon name="star" slot="icon-only" color="secondary"></ion-icon>
-      </ion-button>
-      <ion-button (click)="favoritecharacter()" *ngIf="!isFavorite">
-        <ion-icon name="star-outline" slot="icon-only" color="secondary"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start" defaultHref="/tabs/characters">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <!--Printing the name of the character inthe title-->
+        <ion-title>{{ character?.name }}</ion-title>
+        <!--Section for the favourite toggle button-->
+        <ion-buttons slot="end">
+            <!--Calling the function by click to unfavourite the character if it is favourite-->
+            <ion-button (click)="unfavouriteCharacter()" *ngIf="isFavourite">
+                <!--Icon star with color warning-->
+                <ion-icon name="star" slot="icon-only" color="warning"></ion-icon>
+            </ion-button>
+            <!--Calling the function by click to add character to favourites in case is not favourite-->
+            <ion-button (click)="favouriteCharacter()" *ngIf="!isFavourite">
+                <!--Empty (outline-only) start icon to diaply as not favourite-->
+                <ion-icon name="star-outline" slot="icon-only" color="warning"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-<ion-content padding>
-  <ion-card *ngIf="character" class="movie-card">
-    <ion-card-header>Character {{ character.char_id }}: {{ character.name }}</ion-card-header>
-    <ion-card-content>
-      {{ character.name }}
-    </ion-card-content>
-    <ion-item class="movie-info" lines="none">
-      <ion-icon name="episode" slot="start"></ion-icon>
-      Director: {{ character.name }}
-    </ion-item>
-    <ion-item class="movie-info" lines="none">
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      Release Date: {{ character.name }}
-    </ion-item>
-  </ion-card>
+
+<!--Content of the page starts here-->
+<ion-content fullscreen>
+    <!--If character exist creates the card-->
+    <ion-card *ngIf="character">
+        <!--First element of the card is the image y referencing the link on the value 'img', note that is class .image which is used to format in the css file-->
+        <img class="image" src="{{ character.img }}">
+        <!--Card header starts here-->
+        <ion-card-header>
+            <!--Card header subtitle is the value 'nickname'-->
+            <ion-card-subtitle>
+                <p>NickName: <strong>{{ character?.nickname }}</strong></p>
+            </ion-card-subtitle>
+            <!--Card title is the name of the character-->
+            <ion-card-title>{{ character?.name }}</ion-card-title>
+        </ion-card-header>
+
+        <!--Set of items that show more information about the character-->
+        <!--Item 1 - Character portrayed by-->
+        <ion-item>
+            <ion-icon name="person" slot="start"></ion-icon>
+            <p>Portrayed by: <strong>{{ character?.portrayed }}</strong></p>
+        </ion-item>
+        <!--Item 2 - Character Birthday-->
+        <ion-item>
+            <ion-icon name="calendar" slot="start"></ion-icon>
+            <p>Birthday: <strong>{{ character?.birthday }}</strong></p>
+        </ion-item>
+        <!--Item 3 - Character status-->
+        <ion-item>
+            <ion-icon name="pulse" slot="start"></ion-icon>
+            <p>Status: <strong>{{ character?.status }}</strong></p>
+        </ion-item>
+    </ion-card>
 </ion-content>

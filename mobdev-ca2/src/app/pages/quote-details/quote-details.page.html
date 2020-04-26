@@ -1,28 +1,40 @@
+<!--Coding reference
+Author:Drifty Co.
+Date: 2020
+Title of program/source code: Ionic Framework
+Type: Angular
+Availability:  https://ionicframework.com/docs/components
+-->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start" defaultHref="/tabs/quotes">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>{{ quote?.author }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="unfavoriteepisode()" *ngIf="isFavorite">
-        <ion-icon name="star" slot="icon-only" color="warning"></ion-icon>
-      </ion-button>
-      <ion-button (click)="favoriteepisode()" *ngIf="!isFavorite">
-        <ion-icon name="star-outline" slot="icon-only" color="warning"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-title>Quote Details</ion-title>
+      <ion-buttons slot="end">
+	
+    <ion-button (click)="unfavouriteQuote()" *ngIf="isFavourite">
+      <ion-icon name="star" slot="icon-only" color="warning"></ion-icon>
+    </ion-button>
+    <ion-button (click)="favouriteQuote()" *ngIf="!isFavourite">
+      <ion-icon name="star-outline" slot="icon-only" color="warning"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
 </ion-header>
+
 <ion-content padding>
-  <ion-card *ngIf="quote" class="movie-card">
-    <ion-card-header>Episode {{ quote.series }}: {{ quote.episode }}</ion-card-header>
+  <ion-card *ngIf="quote">
     <ion-card-content>
-      {{ quote.series }}
+      <h2><i>"{{ quote.quote }}"</i></h2>
     </ion-card-content>
-    <ion-item class="movie-info" lines="none">
-      <ion-icon name="quote" slot="start"></ion-icon>
-      Director: {{ quote.author }}
+    <ion-item lines="none">
+      <ion-icon name="person" slot="start"></ion-icon>
+      <p>Author: <strong>{{ quote.author }}</strong></p>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-icon name="film" slot="start"></ion-icon>
+      <p>Series: <strong>{{ quote.series }}</strong></p>
     </ion-item>
   </ion-card>
 </ion-content>

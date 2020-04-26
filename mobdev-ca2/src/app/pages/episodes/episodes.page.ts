@@ -1,6 +1,5 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { ApiService } from '../../services/api.service';
 
 
@@ -12,16 +11,17 @@ import { ApiService } from '../../services/api.service';
 })
 export class EpisodesPage implements OnInit {
 
-  episodes: Observable<any>;
+    episodes = [];
 
     constructor(private router: Router, private api: ApiService) { }
 
     ngOnInit() {
-              this.episodes = this.api.getEpisodes();
-              this.episodes.subscribe(data=> {
-                  console.log('mydata :',data)
-      })
-       
+        this.api.getEpisodes().subscribe(data => {
+            console.log('mydata :', data)
+            this.episodes = this.episodes.concat(data);
+            console.log('episodes :', this.episodes)
+        })
+
     }
 
     openDetails(episode) {
